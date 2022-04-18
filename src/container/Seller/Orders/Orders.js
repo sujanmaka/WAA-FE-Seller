@@ -1,13 +1,8 @@
-import { useEffect, useState } from "react"
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { useState } from "react";
 import Order from "../../../components/Seller/Order/Order";
 import OrderDetails from "../../../components/Seller/OrderDetails/OrderDetails";
-import { sidebarActions } from "../../../store";
 
 const Orders = () => {
-    const dispatch = useDispatch();
-    dispatch(sidebarActions.goOrdersPage())
     const [orders, setOrders] = useState(
         [
             {

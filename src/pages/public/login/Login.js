@@ -9,34 +9,27 @@ import {
   Grid,
   TextField,
 } from "@material-ui/core";
-import logo from "../../../assets/img/logo.png";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import WAA, { API_URL } from "../../../api/api";
+import logo from "../../../assets/img/logo.png";
 import AddAlertMessage from "../../../components/alert/Alert";
 import Spinner from "../../../components/loader/Loader";
 // context
 import { useUserDispatch } from "../../../context/UserContext";
 import { AppUtils } from "../../../utils/appUtils";
 import {
-  ENTER_VALID_EMAIL,
   IS_SESSION_EXPIRED,
   LOGIN_FAILURE,
   LOGIN_SUCCESS,
-  LOGOUT_SUCCESS,
-  REQUIRED_FIELD,
   SESSION_EXPIRED,
   SOMETHING_WENT_WRONG,
-  USER_ID,
 } from "../../../utils/constants/index";
-import { LocalStorage } from "../../../utils/storage/localStorage";
 import { SessionStorage } from "../../../utils/storage/sessionStorage";
 import styles from "./style";
-import { useNavigate } from "react-router-dom";
 
 export default function LoginForm(props) {
-  const navigate = useNavigate();
   const classes = styles();
   const { register, handleSubmit, errors } = useForm();
 
@@ -62,17 +55,13 @@ export default function LoginForm(props) {
       .then((response) => {
         setIsLoading(false);
         let data = response.data;
-        console.log(data);
         if (data.type === "success") {
           AppUtils.saveUserCredentials(data);
-          navigate("/admin/dashboard");
-          // LocalStorage.setItem(USER_ID, data.id); //if we want user-id in front end
           userDispatch({ type: LOGIN_SUCCESS });
-        } else if (data.type === "error") {
-          AddAlertMessage({
-            type: "error",
-            message: data.message,
-          });
+          props.history.push("/");
+        } else {
+          userDispatch({ type: LOGIN_FAILURE });
+          AddAlertMessage({ type: data.type, message: data.message });
         }
       })
       .catch((error) => {
@@ -100,17 +89,11 @@ export default function LoginForm(props) {
                 margin="normal"
                 variant="outlined"
                 name="userEmail"
-                inputRef={register({
+                {...register("userEmail", {
                   required: true,
                   pattern: /\S+@\S+\.\S+/,
                 })}
               />
-              {errors.email && errors.email.type === "required" && (
-                <span className="error-message">{REQUIRED_FIELD}</span>
-              )}
-              {errors.email && errors.email.type === "pattern" && (
-                <span className="error-message">{ENTER_VALID_EMAIL}</span>
-              )}
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -122,19 +105,16 @@ export default function LoginForm(props) {
                 margin="normal"
                 variant="outlined"
                 name="password"
-                inputRef={register({
+                {...register("password", {
                   required: true,
                 })}
               />
-              {errors.password && (
-                <span className="error-message">{REQUIRED_FIELD}</span>
-              )}
             </Grid>
             <FormControlLabel
               control={<Checkbox color="primary" />}
               label="Remember Me"
               name="rememberMe"
-              inputRef={register}
+              {...register("rememberMe")}
             />
             <Grid item xs={12} className={classes.loginBtnContainer}>
               {isLoading ? (

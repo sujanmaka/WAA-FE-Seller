@@ -1,10 +1,5 @@
-import { 
-    Box, Link, Grid, Paper, ListItemButton, ListItemText, List, Container
-} from "@mui/material";
-import { styled } from '@mui/material/styles';
 import { useState } from "react";
 import SellerRoute from "../../../routes/SellerRoute";
-import Products from "../Products/Products";
 import Sidebar from "../Sidebar/Sidebar";
 
 const Dashboard = () => {
@@ -14,6 +9,7 @@ const Dashboard = () => {
     const handleChange = (event, newValue) => {
         setValue(newValue);
       };
+      
     
     return (
         <div className="container">

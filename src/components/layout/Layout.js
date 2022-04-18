@@ -1,9 +1,10 @@
 import classnames from "classnames";
 import React from "react";
 // context
-import {useLayoutState} from "../../context/LayoutContext";
-import {useUserState} from "../../context/UserContext";
+import { useLayoutState } from "../../context/LayoutContext";
+import { useUserState } from "../../context/UserContext";
 import Header from "../header/Header";
+import Sidebar from "../sidebar/Sidebar";
 // styles
 import styles from "./styles";
 
@@ -31,6 +32,7 @@ function Layout(props) {
         {isAuthenticated &&
           <>
             <Header />
+            <Sidebar />
           </>
         }
         {mainContent}

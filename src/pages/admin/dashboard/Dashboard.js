@@ -1,13 +1,15 @@
 import React from "react";
-import WAA, { API_URL } from "../../../api/api";
+import { USER_ROLE } from "../../../utils/constants";
+import { Cookies } from "../../../utils/storage/cookies";
 import styles from "./style";
 
 export default function AdminDashboard() {
   const classes = styles();
+  const userRole = Cookies.readCookie(USER_ROLE);
 
   return (
     <>
-      <div>this is the admin dashboard</div>
+      this is  admin dashboard
     </>
   );
 }

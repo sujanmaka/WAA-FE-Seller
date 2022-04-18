@@ -1,6 +1,5 @@
-import { store } from 'react-notifications-component';
-import 'react-notifications-component/dist/theme.css'
-
+import { store } from "react-notifications-component";
+import "react-notifications-component/dist/theme.css";
 
 export default function AddAlertMessage({ type, message, container, ...rest }) {
   store.addNotification({
@@ -15,6 +14,6 @@ export default function AddAlertMessage({ type, message, container, ...rest }) {
       pauseOnHover: true,
       onScreen: true,
     },
-    ...rest
+    ...rest,
   });
 }
