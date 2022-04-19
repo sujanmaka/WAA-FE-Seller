@@ -1,41 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import WAA, { API_URL } from "../../../api/api";
+import Spinner from "../../../components/loader/Loader";
 import Order from "../../../components/Seller/Order/Order";
 import OrderDetails from "../../../components/Seller/OrderDetails/OrderDetails";
 
 const Orders = () => {
-    const [orders, setOrders] = useState(
-        [
-            {
-                id: 1, 
-                totalPrice: 100,
-                createdAt: new Date().toLocaleString(),
-                status: "Processing",
-                updatedAt: new Date().toLocaleString()
-            },
-            {
-                id: 2, 
-                totalPrice: 100,
-                createdAt: new Date().toLocaleString(),
-                status: "Shipped",
-                updatedAt: new Date().toLocaleString()
-            },
-            {
-                id: 3, 
-                totalPrice: 100,
-                createdAt: new Date().toLocaleString(),
-                status: "On The Way",
-                updatedAt: new Date().toLocaleString()
-            },
-            {
-                id: 4, 
-                totalPrice: 100,
-                createdAt: new Date().toLocaleString(),
-                status: "Delivered",
-                updatedAt: new Date().toLocaleString()
-            },
-        ]
-    );
-
+    const [orders, setOrders] = useState([]);
 
     const ordersView = orders.map(o => {
         return <Order
@@ -44,25 +14,36 @@ const Orders = () => {
         />
     })
 
+    const fetchOrder = () => {
+        WAA.get(API_URL.sellerOrders).then(res => {
+            setOrders(res.data)
+        }).catch(err => console.log(err))
+    }
+
+    useEffect(fetchOrder, [])
+
+
     return (
-        <div>
-            <h1>List of Orders</h1>
-            <table className="table table-striped">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Total Price</th>
-                        <th>Ordered At</th>
-                        <th>Status</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {ordersView}
-                </tbody>
-            </table>
-            <OrderDetails />
-        </div>
+        orders.length > 0
+            ? <div>
+                <h1>List of Orders</h1>
+                <table className="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Customer</th>
+                            <th>Ordered At</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {ordersView}
+                    </tbody>
+                </table>
+                <OrderDetails />
+            </div>
+            : <Spinner />
     )
 }
 

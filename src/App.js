@@ -16,6 +16,7 @@ import ForgetPassword from "./pages/public/forget-password/ForgetPassword";
 import LoginForm from "./pages/public/login/Login";
 import NotAuthorized from "./pages/public/not-authorized/NotAuthorized";
 import GlobalPageNotFound from "./pages/public/not-found/GlobalPageNotFound";
+import Register from "./pages/public/register/Register";
 import ResetPassword from "./pages/public/reset-password/ResetPassword";
 import Route from "./routes/Route";
 import history from "./services/history";
@@ -29,6 +30,7 @@ function App() {
         <Layout>
           <Switch>
             <Route exact path="/" component={LoginForm} />
+            <Route exact path="/register" component={Register} />
             <Route exact path="/reset" component={ResetPassword} />
             <Route
               exact
@@ -62,8 +64,8 @@ function App() {
               path="/seller/new-product"
               component={NewProduct}
             />
-            <Route isPrivate path="/seller/orders" component={Orders} />
-            <Route path="/seller/orders/:id" component={OrderDetails} />
+            <Route exact path="/seller/orders" isPrivate component={Orders} />
+            <Route isPrivate path="/seller/orders/:id" component={OrderDetails} />
             <Route component={GlobalPageNotFound} isWrongLink />
           </Switch>
         </Layout>

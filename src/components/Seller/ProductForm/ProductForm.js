@@ -5,13 +5,13 @@ import { Link } from "react-router-dom";
 import * as yup from "yup";
 
 const schema = yup.object({
-  productName: yup.string().required("Name is required"),
+  name: yup.string().required("Name is required"),
   quantity: yup.number().integer().required().positive().min(1),
-  price: yup.number().required().positive().min(0.01),
+  cost: yup.number().required().positive().min(0.01),
 });
 const ProductForm = (props) => {
   const [formIsValid, setFormIsValid] = useState(false);
-
+  console.log(props.initValue)
   const {
     register,
     formState: { errors },
@@ -22,8 +22,8 @@ const ProductForm = (props) => {
   });
 
   const submitHandle = (data) => {
-    console.log(data);
-    console.log(errors);
+    console.log(data)
+    props.submitHandle(data);
   };
 
   return (
@@ -39,9 +39,9 @@ const ProductForm = (props) => {
               errors.productName ? "form-control is-invalid" : "form-control"
             }
             id="productName"
-            {...register("productName", { required: true })}
+            {...register("name", { required: true })}
           />
-          <div class="error">{errors.productName?.message}</div>
+          <div className="error">{errors.productName?.message}</div>
         </div>
         <div className="mb-3">
           <label htmlFor="productQuantity" className="form-label">
@@ -55,54 +55,65 @@ const ProductForm = (props) => {
             id="productQuantity"
             {...register("quantity", { required: true })}
           />
-          <div class="error">{errors.quantity?.message}</div>
+          <div className="error">{errors.quantity?.message}</div>
         </div>
         <div className="mb-3">
           <label htmlFor="productPrice" className="form-label">
-            Price
+            Cost
           </label>
           <input
             type="number"
             className={
-              errors.price ? "form-control is-invalid" : "form-control"
+              errors.cost ? "form-control is-invalid" : "form-control"
             }
             id="productPrice"
             step=".01"
-            {...register("price", { required: true })}
+            {...register("cost", { required: true })}
           />
-          <div class="error">{errors.price?.message}</div>
+          <div className="error">{errors.cost?.message}</div>
         </div>
         <div className="mb-3">
-          <label htmlFor="image1" className="form-label">
-            Image 1
+          <label htmlFor="picture" className="form-label">
+            Picture
           </label>
           <input
             type="text"
             className="form-control"
-            id="image1"
-            {...register("image1", { required: false })}
+            id="picture"
+            {...register("picture", { required: false })}
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="image2" className="form-label">
-            Image 2
+          <label htmlFor="category" className="form-label">
+            Category
           </label>
           <input
             type="text"
             className="form-control"
-            id="image2"
-            {...register("image2", { required: false })}
+            id="category"
+            {...register("category", { required: false })}
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="image3" className="form-label">
-            Image 3
+          <label htmlFor="tags" className="form-label">
+            Tags
           </label>
           <input
             type="text"
             className="form-control"
-            id="image3"
-            {...register("image3", { required: false })}
+            id="tags"
+            {...register("tags", { required: false })}
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="productIndex" className="form-label">
+            Index
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="productIndex"
+            {...register("productIndex", { required: false })}
           />
         </div>
         <div className="mb-3">
@@ -113,7 +124,7 @@ const ProductForm = (props) => {
             type="text"
             className="form-control"
             id="productDesc"
-            {...register("desc", { required: false })}
+            {...register("description", { required: false })}
           />
         </div>
         <button type="submit" className="btn btn-primary mb-3">

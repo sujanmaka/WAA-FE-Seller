@@ -33,7 +33,7 @@ export default function SellerRoute() {
           </Route>
           <Route path="/edit-product/:id" element={<EditProduct />} />
           <Route path="/new-product" element={<NewProduct />} />
-          <Route path="/orders" element={<Orders />}>
+          <Route exact path="/orders" element={<Orders />}>
             <Route path=":id" element={<OrderDetails />} />
           </Route>
         </>

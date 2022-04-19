@@ -15,16 +15,19 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import React, {useState} from "react";
 import {useForm} from "react-hook-form";
 import WAA, {API_URL} from "../../../api/api";
-import logo from "../../../assets/img/gop.png";
+import logo from "../../../assets/img/logo.png";
 import AddAlertMessage from "../../../components/alert/Alert";
 import Spinner from "../../../components/loader/Loader";
 // context
 import {ENTER_VALID_EMAIL, REQUIRED_FIELD, SOMETHING_WENT_WRONG,} from "../../../utils/constants/index";
 import styles from "./style";
 
+
+
+
 export default function Register(props) {
     const classes = styles();
-    const { register, handleSubmit, errors, reset } = useForm();
+    const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const [role, setRole] = useState();
 
     const handleChange = (event) => {
@@ -74,8 +77,7 @@ export default function Register(props) {
                                 label="Name"
                                 margin="normal"
                                 variant="outlined"
-                                name="name"
-                                inputRef={register({
+                                {...register("name",{
                                     required: true,
                                 })}
                             />
@@ -90,10 +92,8 @@ export default function Register(props) {
                                 label="email"
                                 margin="normal"
                                 variant="outlined"
-                                name="email"
-                                inputRef={register({
-                                    required: true,
-                                    pattern: /\S+@\S+\.\S+/,
+                                {...register("email",{
+                                    required: true
                                 })}
                             />
                             {errors.email && errors.email.type === "required" && (
@@ -112,8 +112,7 @@ export default function Register(props) {
                                 autoComplete="current-password"
                                 margin="normal"
                                 variant="outlined"
-                                name="password"
-                                inputRef={register({
+                                {...register("password",{
                                     required: true,
                                 })}
                             />
@@ -129,8 +128,7 @@ export default function Register(props) {
                                 type="text"
                                 margin="normal"
                                 variant="outlined"
-                                name="address"
-                                inputRef={register({
+                                {...register("address",{
                                     required: true,
                                 })}
                             />
@@ -146,8 +144,7 @@ export default function Register(props) {
                                 type="text"
                                 margin="normal"
                                 variant="outlined"
-                                name="phone"
-                                inputRef={register({
+                                {...register("phone",{
                                     required: true,
                                 })}
                             />

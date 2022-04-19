@@ -13,14 +13,6 @@ const Dashboard = () => {
     
     return (
         <div className="container">
-            <div className="row">
-                <div className="col-3">
-                    <Sidebar />
-                </div>
-                <div className="col-9">
-                    <SellerRoute />
-                </div>
-            </div>
         </div>
     )
 }

@@ -1,27 +1,28 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import WAA, { API_URL } from "../../../api/api";
 import Product from "../../../components/Seller/Product/Product";
-import { sidebarActions } from "../../../store";
 
 const Products = () => {
-  const [productsState, setProductsState] = useState([
-    { id: 1, name: "Product 1", price: 10.0, quantity: 10, desc: "" },
-    { id: 2, name: "Product 2", price: 4.0, quantity: 5, desc: "" },
-    { id: 3, name: "Product 3", price: 3.0, quantity: 6, desc: "" },
-  ]);
+  const [productsState, setProductsState] = useState([]);
 
   const productsView = productsState.map((p) => {
     return (
       <Product
         key={p.id}
-        id={p.id}
-        name={p.name}
-        price={p.price}
-        quantity={p.quantity}
+        {...p}
       />
     );
   });
+
+  const fetchProducts = () => {
+    WAA.get(API_URL.sellerProducts).then(res => {
+      console.log(res.data)
+      setProductsState(res.data)
+    }).catch(err => console.log(err))
+  }
+
+  useEffect(fetchProducts, [])
 
   return (
     <div>
@@ -35,9 +36,11 @@ const Products = () => {
         <thead>
           <tr>
             <th>ID</th>
+            <th>Photo</th>
             <th>Name</th>
             <th>Price</th>
             <th>Quantity</th>
+            <th>Status</th>
             <th></th>
           </tr>
         </thead>

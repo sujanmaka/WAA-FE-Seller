@@ -1,19 +1,25 @@
-import { useRef, useState } from "react"
+import WAA, { API_URL } from "../../../api/api";
 import ProductForm from "../ProductForm/ProductForm";
-
+import { useHistory } from "react-router-dom";
 const NewProduct = () => {
+    const history = useHistory();
     const initValue = {
         name: "",
-        image: "",
-        categories: "",
+        picture: "",
+        category: "",
         tags: "",
         quantity: 0,
-        price: 0.0,
-        desc: ""
+        cost: 0.0,
+        description: "",
+        rating: "",
+        productIndex: ""
+
     }
 
     const submitHandle = (data) => {
-        console.log(data)
+        WAA.post(API_URL.sellerProducts, data).then(res => {
+            history.push("/seller/products")
+        }).catch(err => console.log(err));
     }
 
     return (
