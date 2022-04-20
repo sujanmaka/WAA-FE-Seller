@@ -8,7 +8,6 @@ import ScrollToTop from "./components/scroll-to-top/ScrollToTop";
 import EditProduct from "./components/Seller/EditProduct/EditProduct";
 import NewProduct from "./components/Seller/NewProduct/NewProduct";
 import OrderDetails from "./components/Seller/OrderDetails/OrderDetails";
-import ProductDetails from "./components/Seller/ProductDetail/ProductDetail";
 import Orders from "./container/Seller/Orders/Orders";
 import Products from "./container/Seller/Products/Products";
 import AdminDashboard from "./pages/admin/dashboard/Dashboard";
@@ -53,7 +52,6 @@ function App() {
             <Route exact path="/forget-password" component={ForgetPassword} />
             <Route path="/seller/dashboard" component={<Products />} />
             <Route isPrivate path="/seller/products" component={Products} />
-            <Route path="/seller/products/:id" component={ProductDetails} />
             <Route
               isPrivate
               path="/seller/edit-product/:id"

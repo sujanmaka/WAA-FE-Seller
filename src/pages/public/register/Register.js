@@ -38,14 +38,14 @@ export default function Register(props) {
 
     const onSubmit = (data) => {
         setIsLoading(true);
-        data.roleType = role;
-        let url;
-        console.log(data);
-        if (!!data.id) {
-            url = WAA.put(API_URL.user, data)
-        } else{
-            url = WAA.post(API_URL.user, data)
-        }
+        if (role) {
+            data.roleType = role;
+            let url;
+            if (!!data.id) {
+                url = WAA.put(API_URL.user, data)
+            } else{
+                url = WAA.post(API_URL.user, data)
+            }
             url.then((response) => {
                 setIsLoading(false);
                 let data = response.data;
@@ -58,6 +58,7 @@ export default function Register(props) {
                 setIsLoading(false);
                 AddAlertMessage({ type: "error", message: SOMETHING_WENT_WRONG });
             });
+        }
     };
 
     return (
@@ -82,7 +83,7 @@ export default function Register(props) {
                                 })}
                             />
                             {errors.name && (
-                                <span className="error-message">{REQUIRED_FIELD}</span>
+                                <p className="error">{REQUIRED_FIELD}</p>
                             )}
                         </Grid>
                         <Grid item xs={12}>
@@ -97,10 +98,10 @@ export default function Register(props) {
                                 })}
                             />
                             {errors.email && errors.email.type === "required" && (
-                                <span className="error-message">{REQUIRED_FIELD}</span>
+                                <p className="error">{REQUIRED_FIELD}</p>
                             )}
                             {errors.email && errors.email.type === "pattern" && (
-                                <span className="error-message">{ENTER_VALID_EMAIL}</span>
+                                <p className="error">{ENTER_VALID_EMAIL}</p>
                             )}
                         </Grid>
                         <Grid item xs={12}>
@@ -117,7 +118,7 @@ export default function Register(props) {
                                 })}
                             />
                             {errors.password && (
-                                <span className="error-message">{REQUIRED_FIELD}</span>
+                                <p className="error">{REQUIRED_FIELD}</p>
                             )}
                         </Grid>
                         <Grid item xs={12}>
@@ -133,7 +134,7 @@ export default function Register(props) {
                                 })}
                             />
                             {errors.address && (
-                                <span className="error-message">{REQUIRED_FIELD}</span>
+                                <p className="error">{REQUIRED_FIELD}</p>
                             )}
                         </Grid>
                         <Grid item xs={12}>
@@ -149,7 +150,7 @@ export default function Register(props) {
                                 })}
                             />
                             {errors.phoneNumber && (
-                                <span className="error-message">{REQUIRED_FIELD}</span>
+                                <p className="error">{REQUIRED_FIELD}</p>
                             )}
                         </Grid>
                         <Grid item xs={12}>
@@ -158,12 +159,18 @@ export default function Register(props) {
                                 <Select
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
-                                    label="Age"
+                                    label="Role"
                                     onChange={handleChange}
+                                    {...register("email",{
+                                        required: true
+                                    })}
                                 >
                                     <MenuItem value="SELLER">SELLER</MenuItem>
                                     <MenuItem value="BUYER">BUYER</MenuItem>
                                 </Select>
+                                {!role && (
+                                    <p className="error">{REQUIRED_FIELD}</p>
+                                )}
                             </FormControl>
                             {errors.phoneNumber && (
                                 <span className="error-message">{REQUIRED_FIELD}</span>

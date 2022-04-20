@@ -17,7 +17,6 @@ const Products = () => {
 
   const fetchProducts = () => {
     WAA.get(API_URL.sellerProducts).then(res => {
-      console.log(res.data)
       setProductsState(res.data)
     }).catch(err => console.log(err))
   }

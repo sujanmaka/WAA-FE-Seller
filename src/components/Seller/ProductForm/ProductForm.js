@@ -1,5 +1,4 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import * as yup from "yup";
@@ -10,8 +9,6 @@ const schema = yup.object({
   cost: yup.number().required().positive().min(0.01),
 });
 const ProductForm = (props) => {
-  const [formIsValid, setFormIsValid] = useState(false);
-  console.log(props.initValue)
   const {
     register,
     formState: { errors },
@@ -25,6 +22,14 @@ const ProductForm = (props) => {
     console.log(data)
     props.submitHandle(data);
   };
+
+  const category = [
+    "Shirt", "T-Shirt", "Pants", "Laptop", "Iphone"
+  ]
+
+  const indices = [
+    "Hot", "Cool", "Cold"
+  ]
 
   return (
     <div>
@@ -87,12 +92,16 @@ const ProductForm = (props) => {
           <label htmlFor="category" className="form-label">
             Category
           </label>
-          <input
+          <select
             type="text"
-            className="form-control"
+            className="form-select"
             id="category"
             {...register("category", { required: false })}
-          />
+          >
+            {category.map(item => {
+              return <option value={item}>{item}</option>
+            })}
+          </select>
         </div>
         <div className="mb-3">
           <label htmlFor="tags" className="form-label">
@@ -109,12 +118,16 @@ const ProductForm = (props) => {
           <label htmlFor="productIndex" className="form-label">
             Index
           </label>
-          <input
+          <select
             type="text"
-            className="form-control"
+            className="form-select"
             id="productIndex"
             {...register("productIndex", { required: false })}
-          />
+          >
+            {indices.map(item => {
+              return <option value={item}>{item}</option>
+            })}
+          </select>
         </div>
         <div className="mb-3">
           <label htmlFor="productDesc" className="form-label">

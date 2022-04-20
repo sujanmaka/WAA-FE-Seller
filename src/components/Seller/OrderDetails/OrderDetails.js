@@ -7,9 +7,8 @@ import "./OrderDetails.css";
 const OrderDetails = () => {
   let { id } = useParams();
   const status = {
-    "CREATED": "Created",
-    "SHIPPED": "Shipped",
     "APPROVED": "Approved",
+    "SHIPPED": "Shipped",
     "DELIVERED": "Delivered",
     "CANCEL": "Cancle"
   }
