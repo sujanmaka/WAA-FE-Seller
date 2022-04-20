@@ -38,7 +38,7 @@ export default function Register(props) {
 
     const onSubmit = (data) => {
         setIsLoading(true);
-        data.role = role;
+        data.roleType = role;
         let url;
         console.log(data);
         if (!!data.id) {
@@ -161,8 +161,8 @@ export default function Register(props) {
                                     label="Age"
                                     onChange={handleChange}
                                 >
-                                    <MenuItem value="ROLE_SELLER">SELLER</MenuItem>
-                                    <MenuItem value="ROLE_BUYER">BUYER</MenuItem>
+                                    <MenuItem value="SELLER">SELLER</MenuItem>
+                                    <MenuItem value="BUYER">BUYER</MenuItem>
                                 </Select>
                             </FormControl>
                             {errors.phoneNumber && (

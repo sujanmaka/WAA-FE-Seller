@@ -28,19 +28,19 @@ export default function Header(props) {
   // local
   var [profileMenu, setProfileMenu] = useState(null);
 
-  const getUsername = () => {
-    EVENTOR.get(API_URL.user)
-      .then(response => {
-        setUserFullName(response.data.fullName);
-        response.data && LocalStorage.setItem(USER_ID, response.data.id);
-      }).catch(error => {
-        AddAlertMessage({ type: "error", message: SOMETHING_WENT_WRONG });
-      })
-  }
+  // const getUsername = () => {
+  //   EVENTOR.get(API_URL.user)
+  //     .then(response => {
+  //       setUserFullName(response.data.fullName);
+  //       response.data && LocalStorage.setItem(USER_ID, response.data.id);
+  //     }).catch(error => {
+  //       AddAlertMessage({ type: "error", message: SOMETHING_WENT_WRONG });
+  //     })
+  // }
 
-  useEffect(() => {
-    getUsername();
-  }, []);
+  // useEffect(() => {
+  //   getUsername();
+  // }, []);
 
   const logout = () => {
     EVENTOR.get(API_URL.logout)
